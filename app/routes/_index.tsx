@@ -1,38 +1,46 @@
-import {Card, CardBody, CardFooter, CardHeader} from "@nextui-org/card";
-import {Link} from "@nextui-org/link";
-import {Divider, Image} from "@nextui-org/react";
+import MainArticle from '~/components/MainArticle';
+import { Link, Navbar, NavbarBrand, NavbarContent, NavbarItem } from '@nextui-org/react';
+import Article from '~/components/Article';
 
 export default function Index() {
   return (
-      <Card className="max-w-[400px]">
-        <CardHeader className="flex gap-3">
-          <Image
-              alt="nextui logo"
-              height={40}
-              radius="sm"
-              src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-              width={40}
-          />
-
-          <div className="flex flex-col">
-            <p className="text-md">NextUI</p>
-            <p className="text-small text-default-500">nextui.org</p>
+    <div>
+      <Navbar maxWidth="full">
+        <NavbarContent className="hidden sm:flex gap-4" justify="start">
+          <NavbarItem>
+            <p className="font-bold text-inherit">Volnetiks</p>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              About
+            </Link>
+          </NavbarItem>
+          <NavbarItem isActive>
+            <Link href="#" aria-current="page">
+              Blog
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="#">
+              Projects
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
+      </Navbar>
+      <main>
+        <div className={'flex flex-col'}>
+          <div className={'flex-row flex justify-around'}>
+            <MainArticle />
+            <Article />
           </div>
-        </CardHeader>
-        <Divider/>
-        <CardBody>
-          <p>Make beautiful websites regardless of your design experience.</p>
-        </CardBody>
-        <Divider/>
-        <CardFooter>
-          <Link
-              isExternal
-              showAnchorIcon
-              href="https://github.com/nextui-org/nextui"
-          >
-            Visit source code on GitHub.
-          </Link>
-        </CardFooter>
-      </Card>
+          <div className={'mt-8 flex-row flex justify-around'}>
+            <Article />
+            <Article />
+            <Article />
+            <Article />
+          </div>
+        </div>
+      </main>
+    </div>
   );
 }
