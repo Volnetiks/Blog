@@ -24,8 +24,6 @@ export default function Header({ activatedIndex }: HeaderProps) {
     hour12: true,
   })
 
-  console.log(activatedIndex == 2);
-
   return (
     <Navbar maxWidth="full">
       <NavbarContent className="hidden sm:flex gap-4" justify="start">

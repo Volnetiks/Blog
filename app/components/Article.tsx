@@ -1,43 +1,56 @@
-import { Button, Card, CardBody, CardFooter, Image } from '@nextui-org/react';
+import { Button, Card, CardBody, CardFooter, Image, Link } from '@nextui-org/react';
 import { BrainCircuit } from 'lucide-react';
 
-export default function Article() {
-  return (
-    <Card
-      className="border-none bg-white dark:bg-default-100/50 w-1/6 h-[600px] p-0 m-0"
-      shadow="sm"
-    >
-      <CardBody className="overflow-hidden p-0 m-0">
-        <Image
-          alt="Album cover"
-          className="object-cover"
-          height={200}
-          width={325}
-          src="https://nextui.org/images/album-cover.png"
-          radius="none"
-          shadow="md"
-        />
+interface Post {
+  title: string;
+  description: string;
+  created_at: string;
+  id: string;
+}
 
-        <div className="flex flex-col col-span-6 md:col-span-8 m-6 h-full">
-          <Button variant="bordered" className="w-min text-black border-black">
-            <BrainCircuit /> Artificial Intelligence
-          </Button>
-          <div className="flex flex-col justify-between h-full max-h-full overflow-hidden">
-            <div className="flex flex-col gap-4 mt-3 text-black h-full overflow-auto">
-              <p className={'font-semibold'}>
-                How to use word vectoring for your projects.
-              </p>
-              <p className="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris bibendum bibendum felis, vel
-                vestibulum diam mattis sit amet. Aliquam commodo id metus auctor mattis.
+interface ArticleProps {
+  post: Post;
+}
+
+export default function Article({ post }: ArticleProps) {
+  return (
+    <Link href={`/post/${post.id}`} className={"w-1/6 h-[600px] p-0 m-0"}>
+      <Card
+        className="border-none bg-white dark:bg-default-100/50 w-full h-full p-0 m-0"
+        shadow="sm"
+      >
+        <CardBody className="overflow-hidden p-0 m-0">
+          <Image
+            alt="Album cover"
+            className="object-cover"
+            height={200}
+            width={325}
+            src="https://nextui.org/images/album-cover.png"
+            radius="none"
+            shadow="md"
+          />
+
+          <div
+            className="flex flex-col col-span-12 md:col-span-7 px-6 h-full max-h-full overflow-hidden justify-between">
+            <Button variant="bordered" className="w-fit border-black mt-8">
+              <BrainCircuit /> Artificial Intelligence
+            </Button>
+            <h1 className="text-2xl font-bold mt-4">
+              {post.title}
+            </h1>
+            <div className="mt-6 overflow-y-auto flex-1">
+              <p>
+                {post.description}
               </p>
             </div>
-            <p>
-              Nov 17, 2024
-            </p>
+            <div className={'my-6'}>
+              <p>
+                {post.created_at}
+              </p>
+            </div>
           </div>
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
+    </Link>
   );
 }
