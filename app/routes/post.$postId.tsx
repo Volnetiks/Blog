@@ -6,9 +6,8 @@ import { createClient } from '@supabase/supabase-js'
 import invariant from 'tiny-invariant';
 import * as process from 'node:process';
 import { Button, Divider, Link } from '@nextui-org/react';
-import { BrainCircuit, LucideIcon } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
-import { tag } from 'postcss-selector-parser';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
@@ -17,6 +16,7 @@ import remarkGfm from 'remark-gfm';
 interface Tag {
   icon: string;
   name: string;
+  color: string;
   id: string;
 }
 
@@ -32,7 +32,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, "Missing postId param");
   const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
 
-  const { data, error } = await supabase.from("posts").select("*, tags ( id, name, icon )").eq("id", params.postId);
+  const { data, error } = await supabase.from("posts").select("*, tags ( id, name, icon, color )").eq("id", params.postId);
 
   if (!data || error) {
     console.log(error);
@@ -46,6 +46,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
       id: tagData.id,
       name: tagData.name,
       icon: tagData.icon,
+      color: tagData.color,
     }
 
     tags.push(tag);
@@ -79,9 +80,15 @@ export default function Post() {
     // @ts-ignore
     const Icon = LucideIcons[tag.icon] as LucideIcon;
 
+    const color: string = 'text-' + tag.color + ' border-' + tag.color;
+    console.log(color);
+
     return (
       <div key={tag.id}>
-        <Button variant="bordered" href={"/"} className="w-fit text-black border-black mt-2" as={Link}>
+        <Button variant="bordered" href={"/"} className={`w-fit mt-2`} style={{
+          borderColor: tag.color,
+          color: tag.color
+        }} as={Link}>
           <Icon /> {tag.name}
         </Button>
       </div>
