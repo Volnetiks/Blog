@@ -9,6 +9,9 @@ import { Button, Divider, Link } from '@nextui-org/react';
 import { BrainCircuit, LucideIcon } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import { tag } from 'postcss-selector-parser';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import remarkGfm from 'remark-gfm';
 
 
 interface Tag {
@@ -85,6 +88,19 @@ export default function Post() {
     );
   }
 
+  const preprocessLaTeX = (content: string) => {
+    const blockProcessedContent = content.replace(
+      /\\\[(.*?)\\\]/gs,
+      (_, equation) => `$$${equation}$$`,
+    );
+
+    const inlineProcessedContent = blockProcessedContent.replace(
+      /\\\((.*?)\\\)/gs,
+      (_, equation) => `$${equation}$`,
+    );
+    return inlineProcessedContent;
+  };
+
   return (
     <main className="w-full">
       <div className="w-full">
@@ -103,8 +119,10 @@ export default function Post() {
         <div className="w-full my-4 px-16">
           <Divider />
         </div>
-        <div className="prose lg:prose-xl flex justify-center min-w-full">
-          <Markdown>{blog.content}</Markdown>
+        <div className="prose lg:prose-xl flex-none justify-center min-w-full px-16">
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
+          <Markdown remarkPlugins={[remarkMath, remarkGfm]}
+                    rehypePlugins={[rehypeKatex]}>{preprocessLaTeX(blog.content)}</Markdown>
         </div>
       </div>
     </main>
