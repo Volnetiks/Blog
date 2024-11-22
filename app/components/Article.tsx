@@ -14,32 +14,38 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   return (
-    <Link href={`/post/${post.id}`} className={"w-1/6 h-[600px] p-0 m-0"}>
+    <Link href={`/post/${post.id}`} className={"w-1/6 h-[600px]"}>
       <Card
-        className="border-none bg-white dark:bg-default-100/50 w-full h-full p-0 m-0"
+        className="bg-white w-full h-full"
         shadow="sm"
       >
-        <CardBody className="overflow-hidden p-0 m-0">
-          <Image
-            alt="Album cover"
-            className="object-cover"
-            height={200}
-            width={325}
-            src="https://nextui.org/images/album-cover.png"
-            radius="none"
-            shadow="md"
-          />
+        <CardBody className="p-0 h-full flex flex-col">
+          <div className={"h-1/3 w-full relative"}>
+            <Image
+              removeWrapper={true}
+              alt="Article cover"
+              classNames={{
+                wrapper: 'w-full h-full overflow-hidden',
+                img: 'w-full h-full object-cover object-center'
+              }}
+              radius="none"
+              shadow="md"
+              src="https://nextui.org/images/album-cover.png"
+            />
+          </div>
 
           <div
-            className="flex flex-col col-span-12 md:col-span-7 px-6 h-full max-h-full overflow-hidden justify-between">
-            <Button variant="bordered" className="w-fit border-black mt-8">
-              <BrainCircuit /> Artificial Intelligence
-            </Button>
-            <h1 className="text-2xl font-bold mt-4">
-              {post.title}
-            </h1>
-            <div className="mt-6 overflow-y-auto flex-1">
-              <p>
+            className="flex flex-col px-6 h-full justify-between">
+            <div className={"flex-none"}>
+              <Button variant="bordered" className="w-fit border-black mt-2">
+                <BrainCircuit /> Artificial Intelligence
+              </Button>
+              <h1 className="text-2xl font-bold mt-4">
+                {post.title}
+              </h1>
+            </div>
+            <div className="mt-2">
+              <p className={"line-clamp-8"}>
                 {post.description}
               </p>
             </div>

@@ -6,6 +6,7 @@ export default {
   theme: {
     extend: {
       lineClamp: {
+        8: '8',
         10: '10',
       },
       fontFamily: {
