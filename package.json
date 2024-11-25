@@ -11,6 +11,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.1",
     "@nextui-org/react": "^2.4.8",
     "@remix-run/node": "^2.14.0",
     "@remix-run/react": "^2.14.0",

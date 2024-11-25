@@ -54,7 +54,7 @@ export default function Header({ activatedIndex }: HeaderProps) {
           </div>
         </NavbarItem>
         <NavbarItem>
-          <Button>
+          <Button href={'/contact'} as={Link}>
             Contact me
           </Button>
         </NavbarItem>
