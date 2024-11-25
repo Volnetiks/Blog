@@ -10,25 +10,25 @@ export default function Header({ activatedIndex }: HeaderProps) {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime(new Date())
+      setTime(new Date());
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
 
   const formatter = new Intl.DateTimeFormat('en-US', {
-    timeZone: "Europe/Paris",
+    timeZone: 'Europe/Paris',
     hour: 'numeric',
     minute: 'numeric',
     second: 'numeric',
-    hour12: true,
-  })
+    hour12: true
+  });
 
   return (
     <Navbar maxWidth="full">
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
-          <p className="font-bold text-inherit">Volnetiks</p>
+          <p className="font-bold text-inherit">Thomas Béchu</p>
         </NavbarItem>
         <NavbarItem className={`${activatedIndex == 0 ? 'text-blue-800 font-semibold' : 'text-black'}`}>
           <Link color="foreground" href="#">
@@ -44,7 +44,7 @@ export default function Header({ activatedIndex }: HeaderProps) {
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="end">
         <NavbarItem>
-          <div className={"flex flex-col gap-0 m-0"}>
+          <div className={'flex flex-col gap-0 m-0'}>
             <p>
               {formatter.format(time)}
             </p>

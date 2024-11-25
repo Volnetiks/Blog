@@ -3,7 +3,7 @@ import { useLoaderData } from '@remix-run/react';
 import invariant from 'tiny-invariant';
 import Header from '~/components/Navbar';
 import HorizontalArticle from '~/components/HorizontalArticle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import { createClient } from '@supabase/supabase-js';
 import process from 'node:process';
@@ -49,18 +49,78 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     tags.push(tag);
   });
 
-  return json({ tag: params.tag, tags: tags });
+  return json({ tag: params.tag, tags: tags, url: process.env.SUPABASE_URL!, key: process.env.SUPABASE_ANON_KEY! });
 };
 
 export default function Post() {
-  const { tag, tags } = useLoaderData<typeof loader>();
+  const { tag, tags, url, key } = useLoaderData<typeof loader>();
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set([tag]));
+  const [posts, setPosts] = useState<Post[]>([]);
 
-  const post: Post = {
-    title: 'test',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae libero fringilla, pellentesque leo sit amet, egestas nulla. Nullam dignissim, eros in congue dignissim, sapien nunc volutpat urna, ut blandit arcu lacus auctor est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus dictum velit ut massa maximus, et luctus mauris imperdiet. Etiam nisi nisi, sagittis non blandit quis, congue sed est. Etiam non sapien quam. Aenean tincidunt bibendum bibendum. Fusce mattis, erat ut auctor pharetra, diam lorem ultricies diam, et scelerisque mi lorem ac augue. Mauris eros mi, dapibus eu pharetra id, cursus vel ante. Nulla vel erat ac odio condimentum fermentum. Nullam sodales, eros in pellentesque pulvinar, metus massa pellentesque arcu, eu sollicitudin leo odio at lectus. Quisque ornare mauris quis sem iaculis, a vehicula justo iaculis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec quis turpis lacinia nulla eleifend pretium a varius arcu. Phasellus ut accumsan metus.',
-    created_at: 'now',
-    id: 'prout'
+  const supabase = createClient(url, key);
+
+  useEffect(() => {
+    fetchPostsWithTags();
+  }, [selectedTags]);
+
+  const fetchPostsWithTags = async () => {
+    if (selectedTags.size > 0) {
+      const { data: tagData } = await supabase
+        .from('tags')
+        .select('id')
+        .in('name', Array.from(selectedTags));
+
+      if (!tagData) return null;
+      const tagIds = tagData.map(tag => tag.id);
+
+      const { data, error } = await supabase
+        .from('tags__posts')
+        .select(`
+          posts (
+            *,
+            tags__posts (
+              tags (
+                id,
+                name
+              )
+            )
+          )
+        `)
+        .in('tag_id', tagIds);
+
+      if (!data || error) console.log('Error');
+
+      const tempPosts: Post[] = [];
+
+      const uniquePosts = data!
+        .map(item => item.posts)
+        .filter((post, index, self) =>
+          // @ts-ignore
+          index === self.findIndex((p) => p.id === post.id)
+        );
+
+      const formatOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      };
+
+      uniquePosts!.forEach((postData) => {
+        const post: Post = {
+          // @ts-ignore
+          title: postData.title,
+          // @ts-ignore
+          description: postData.description,
+          // @ts-ignore
+          created_at: new Date(postData.created_at).toLocaleString('en-US', formatOptions),
+          // @ts-ignore
+          id: postData.id
+        };
+
+        tempPosts.push(post);
+      });
+      setPosts(tempPosts);
+    }
   };
 
   const renderTagIcon = (tag: Tag) => {
@@ -94,7 +154,7 @@ export default function Post() {
               selectedKeys={selectedTags}
               variant="bordered"
               classNames={{
-                trigger: "h-[55px]"
+                trigger: 'h-[55px]'
               }}
               // @ts-ignore
               onSelectionChange={setSelectedTags}
@@ -117,7 +177,12 @@ export default function Post() {
               )}
             </Select>
           </div>
-          <HorizontalArticle post={post} />
+          <div className={'flex flex-col gap-4'}>
+            {posts.map((post: Post) => {
+              console.log(post);
+              return (<HorizontalArticle post={post} />);
+            })}
+          </div>
         </div>
       </div>
     </main>
