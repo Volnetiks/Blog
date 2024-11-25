@@ -2,7 +2,7 @@ import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import Header from '~/components/Navbar';
 import Markdown from 'react-markdown';
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
 import invariant from 'tiny-invariant';
 import * as process from 'node:process';
 import { Button, Divider, Link } from '@nextui-org/react';
@@ -29,25 +29,28 @@ interface Post {
 }
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  invariant(params.postId, "Missing postId param");
+  invariant(params.postId, 'Missing postId param');
   const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
 
-  const { data, error } = await supabase.from("posts").select("*, tags ( id, name, icon, color )").eq("id", params.postId);
+  const {
+    data,
+    error
+  } = await supabase.from('posts').select('*, tags ( id, name, icon, color )').eq('id', params.postId);
 
   if (!data || error) {
     console.log(error);
-    throw new Response("Not Found", { status: 404 });
+    throw new Response('Not Found', { status: 404 });
   }
 
   const tags: Tag[] = [];
 
-  data[0]["tags"].forEach((tagData: any) => {
+  data[0]['tags'].forEach((tagData: any) => {
     const tag: Tag = {
       id: tagData.id,
       name: tagData.name,
       icon: tagData.icon,
-      color: tagData.color,
-    }
+      color: tagData.color
+    };
 
     tags.push(tag);
   });
@@ -55,28 +58,28 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const formatOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   };
 
-  const date = new Date(data[0]["created_at"]);
+  const date = new Date(data[0]['created_at']);
 
   const formattedDate = date.toLocaleString('en-US', formatOptions);
 
   const blog: Post = {
-    title: data[0]["title"],
-    content: data[0]["content"],
-    description: data[0]["description"],
+    title: data[0]['title'],
+    content: data[0]['content'],
+    description: data[0]['description'],
     created_at: formattedDate,
     tags: tags
-  }
+  };
 
   return blog;
-}
+};
 
 export default function Post() {
   const blog = useLoaderData<typeof loader>();
 
-  const renderTagIcon = (tag: Tag)=> {
+  const renderTagIcon = (tag: Tag) => {
     // @ts-ignore
     const Icon = LucideIcons[tag.icon] as LucideIcon;
 
@@ -85,7 +88,7 @@ export default function Post() {
 
     return (
       <div key={tag.id}>
-        <Button variant="bordered" href={"/"} className={`w-fit mt-2`} style={{
+        <Button variant="bordered" href={`/search/tag/${tag.name}`} className={`w-fit mt-2`} style={{
           borderColor: tag.color,
           color: tag.color
         }} as={Link}>
@@ -93,17 +96,17 @@ export default function Post() {
         </Button>
       </div>
     );
-  }
+  };
 
   const preprocessLaTeX = (content: string) => {
     const blockProcessedContent = content.replace(
       /\\\[(.*?)\\\]/gs,
-      (_, equation) => `$$${equation}$$`,
+      (_, equation) => `$$${equation}$$`
     );
 
     const inlineProcessedContent = blockProcessedContent.replace(
       /\\\((.*?)\\\)/gs,
-      (_, equation) => `$${equation}$`,
+      (_, equation) => `$${equation}$`
     );
     return inlineProcessedContent;
   };
@@ -119,7 +122,7 @@ export default function Post() {
           <div className="text-gray-500 text-sm">
             {blog.created_at}
           </div>
-          <div className={"flex flex-row gap-4"}>
+          <div className={'flex flex-row gap-4'}>
             {blog.tags.map(renderTagIcon)}
           </div>
         </div>
