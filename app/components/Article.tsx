@@ -1,5 +1,4 @@
-import { Button, Card, CardBody, CardFooter, Image, Link } from '@nextui-org/react';
-import { BrainCircuit } from 'lucide-react';
+import { Card, CardBody, Image, Link } from '@nextui-org/react';
 import PostWithTags from '~/interfaces/PostWithTags';
 
 interface ArticleProps {
@@ -30,18 +29,20 @@ export default function Article({ post }: ArticleProps) {
 
           <div
             className="flex flex-col px-6 h-full justify-between">
-            <div className={'flex-none'}>
-              <Button variant="bordered" className="w-fit border-black mt-2">
-                <BrainCircuit /> Artificial Intelligence
-              </Button>
-              <h1 className="text-2xl font-bold mt-4">
-                {post.title}
-              </h1>
-            </div>
-            <div className="mt-2">
-              <p className={'line-clamp-8'}>
-                {post.description}
-              </p>
+            <div>
+              <div className={'flex-none'}>
+                <h1 className="text-2xl font-bold mt-4">
+                  {post.title}
+                </h1>
+              </div>
+              <div className={'min-h-0 mt-2 flex flex-col'}>
+                <p className={'text-gray-400'}>{post.tags.map((tag) => tag.name).join(', ')}</p>
+              </div>
+              <div className="mt-2">
+                <p className={'line-clamp-8'}>
+                  {post.description}
+                </p>
+              </div>
             </div>
             <div className={'my-6'}>
               <p>
