@@ -28,7 +28,9 @@ export default function Header({ activatedIndex }: HeaderProps) {
     <Navbar maxWidth="full">
       <NavbarContent className="hidden sm:flex gap-4" justify="start">
         <NavbarItem>
-          <p className="font-bold text-inherit">Thomas Béchu</p>
+          <Link className={'text-black'} href={'/'}>
+            <p className="font-bold text-inherit">Thomas Béchu</p>
+          </Link>
         </NavbarItem>
         <NavbarItem className={`${activatedIndex == 0 ? 'text-blue-800 font-semibold' : 'text-black'}`}>
           <Link color="foreground" href="#">
