@@ -68,8 +68,8 @@ export default function Post() {
     const Icon = LucideIcons[tag.icon] as LucideIcon;
 
     return (
-      <div key={tag.name} className={'flex gap-2 items-center'}>
-        <Button variant="bordered" className={`w-fit mt-2`} style={{
+      <div key={tag.name}>
+        <Button variant="bordered" className={`w-fit`} style={{
           borderColor: tag.color,
           color: tag.color
         }}>
@@ -93,12 +93,14 @@ export default function Post() {
               placeholder="Choose the tags you're looking for."
               selectedKeys={selectedTags}
               variant="bordered"
-              className={'h-[50px]'}
+              classNames={{
+                trigger: "h-[55px]"
+              }}
               // @ts-ignore
               onSelectionChange={setSelectedTags}
               renderValue={(items) => {
                 return (
-                  <div className={'flex flex-row gap-4'}>
+                  <div className={'flex flex-row gap-4 items-center'}>
                     {items.map((item) => (
                       <div key={item.key}>
                         {renderTagIcon(item.data!)}
