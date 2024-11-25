@@ -32,16 +32,20 @@ export default function Header({ activatedIndex }: HeaderProps) {
             <p className="font-bold text-inherit">Thomas Béchu</p>
           </Link>
         </NavbarItem>
-        <NavbarItem className={`${activatedIndex == 0 ? 'text-blue-800 font-semibold' : 'text-black'}`}>
-          <Link color="foreground" href="#">
-            About
+        <NavbarItem>
+          <Link href={'/'}>
+            <p className={`${activatedIndex == 0 ? 'text-blue-800 font-semibold' : 'text-black'}`}>About</p>
           </Link>
         </NavbarItem>
-        <NavbarItem className={`${activatedIndex == 1 ? 'text-blue-800 font-semibold' : 'text-black'}`}>
-          Blog
+        <NavbarItem>
+          <Link href={'/blog'}>
+            <p className={`${activatedIndex == 1 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Blog</p>
+          </Link>
         </NavbarItem>
-        <NavbarItem className={`${activatedIndex == 2 ? 'text-blue-800 font-semibold' : 'text-black'}`}>
-          Projects
+        <NavbarItem>
+          <Link href={'/projects'}>
+            <p className={`${activatedIndex == 2 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Projects</p>
+          </Link>
         </NavbarItem>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="end">
