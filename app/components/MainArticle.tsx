@@ -28,8 +28,6 @@ export default function MainArticle({ post }: MainArticleProps) {
     );
   };
 
-  console.log(post.tags);
-
   return (
     <div className="w-4/6 h-[600px]">
       <Link href={`/post/${post.id}`} className={'w-full h-full'}>
