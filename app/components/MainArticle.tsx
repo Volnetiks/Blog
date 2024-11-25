@@ -53,15 +53,15 @@ export default function MainArticle({ post }: MainArticleProps) {
 
             <div
               className="flex-1 flex flex-col px-6 h-full justify-between">
-              <div>
+              <div className={'overflow-hidden flex flex-col'}>
                 <div className={'flex flex-row gap-2 mt-8'}>
                   {post.tags.map((tag: Tag) => renderTagIcon(tag))}
                 </div>
                 <h1 className="text-5xl font-bold text-white mt-6">
                   {post.title}
                 </h1>
-                <div className="mt-6 text-white">
-                  <p className={'line-clamp-10'}>
+                <div className="mt-6 flex-grow overflow-y-auto text-white">
+                  <p className={'break-words'}>
                     {post.description}
                   </p>
                 </div>

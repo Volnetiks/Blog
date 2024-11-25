@@ -12,7 +12,7 @@ export default function Article({ post }: ArticleProps) {
         className="bg-white w-full h-full"
         shadow="sm"
       >
-        <CardBody className="p-0 h-full flex flex-col">
+        <CardBody className="p-0 h-full flex flex-col box-border">
           <div className={'h-1/3 w-full relative'}>
             <Image
               removeWrapper={true}
@@ -27,19 +27,18 @@ export default function Article({ post }: ArticleProps) {
             />
           </div>
 
-          <div
-            className="flex flex-col px-6 h-full justify-between">
-            <div>
-              <div className={'flex-none'}>
+          <div className="flex flex-col px-6 h-2/3 overflow-hidden justify-between">
+            <div className="overflow-hidden flex flex-col">
+              <div>
                 <h1 className="text-2xl font-bold mt-4">
                   {post.title}
                 </h1>
+                <div className={'min-h-0 mt-2 flex flex-col'}>
+                  <p className={'text-gray-400'}>{post.tags.map((tag) => tag.name).join(', ')}</p>
+                </div>
               </div>
-              <div className={'min-h-0 mt-2 flex flex-col'}>
-                <p className={'text-gray-400'}>{post.tags.map((tag) => tag.name).join(', ')}</p>
-              </div>
-              <div className="mt-2">
-                <p className={'line-clamp-8'}>
+              <div className="mt-2 flex-grow overflow-y-auto">
+                <p className="break-words">
                   {post.description}
                 </p>
               </div>
