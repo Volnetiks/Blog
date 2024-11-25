@@ -2,54 +2,57 @@ import MainArticle from '~/components/MainArticle';
 import Article from '~/components/Article';
 import Header from '~/components/Navbar';
 import { LoaderFunctionArgs } from '@remix-run/node';
-import { createClient } from '@supabase/supabase-js';
-import process from 'node:process';
 import { useLoaderData } from '@remix-run/react';
+import { supabase } from '~/database/database';
+import Tag from '~/interfaces/Tag';
+import PostWithTags from '~/interfaces/PostWithTags';
 
-interface Post {
-  title: string;
-  description: string;
-  created_at: string;
-  id: string;
-}
+export const loader = async () => {
 
-export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
+  const data = await supabase.getRecentPosts(6);
 
-  const { data, error } = await supabase.from("posts").select("*").order("created_at", {ascending: false}).limit(6);
-
-  if (!data || error) {
-    throw new Response("Not Found", { status: 404 });
-  }
-
-  const posts: Post[] = [];
+  const posts: PostWithTags[] = [];
 
   const formatOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
+    day: 'numeric'
   };
 
   data.forEach((dataItem) => {
-    const date = new Date(dataItem["created_at"]);
+    const tags: Tag[] = [];
+
+    dataItem['tags'].forEach((tagData: any) => {
+      const tag: Tag = {
+        id: tagData.id,
+        name: tagData.name,
+        icon: tagData.icon,
+        color: tagData.color
+      };
+
+      tags.push(tag);
+    });
+
+    const date = new Date(dataItem['created_at']);
 
     const formattedDate = date.toLocaleString('en-US', formatOptions);
 
-    const post: Post = {
-      title: dataItem["title"],
-      description: dataItem["description"],
+    const post: PostWithTags = {
+      title: dataItem['title'],
+      description: dataItem['description'],
+      content: dataItem['content'],
       created_at: formattedDate,
-      id: dataItem["id"],
-    }
+      tags: tags,
+      id: dataItem['id']
+    };
 
     posts.push(post);
   });
 
   return posts;
-}
+};
 
 export default function Index() {
-
   const posts = useLoaderData<typeof loader>();
 
   return (

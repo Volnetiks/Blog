@@ -2,45 +2,21 @@ import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import Header from '~/components/Navbar';
 import Markdown from 'react-markdown';
-import { createClient } from '@supabase/supabase-js';
 import invariant from 'tiny-invariant';
-import * as process from 'node:process';
 import { Button, Divider, Link } from '@nextui-org/react';
 import { LucideIcon } from 'lucide-react';
 import * as LucideIcons from 'lucide-react';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
-
-
-interface Tag {
-  icon: string;
-  name: string;
-  color: string;
-  id: string;
-}
-
-interface Post {
-  title: string;
-  content: string;
-  description: string;
-  created_at: string;
-  tags: Tag[];
-}
+import { supabase } from '~/database/database';
+import Tag from '~/interfaces/Tag';
+import PostWithTags from '~/interfaces/PostWithTags';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, 'Missing postId param');
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
 
-  const {
-    data,
-    error
-  } = await supabase.from('posts').select('*, tags ( id, name, icon, color )').eq('id', params.postId);
-
-  if (!data || error) {
-    console.log(error);
-    throw new Response('Not Found', { status: 404 });
-  }
+  const data = await supabase.getPostAndTags(params.postId);
 
   const tags: Tag[] = [];
 
@@ -65,18 +41,19 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 
   const formattedDate = date.toLocaleString('en-US', formatOptions);
 
-  const blog: Post = {
+  const blog: PostWithTags = {
     title: data[0]['title'],
     content: data[0]['content'],
     description: data[0]['description'],
     created_at: formattedDate,
-    tags: tags
+    tags: tags,
+    id: data[0]['id']
   };
 
   return blog;
 };
 
-export default function Post() {
+export default function PostPage() {
   const blog = useLoaderData<typeof loader>();
 
   const renderTagIcon = (tag: Tag) => {

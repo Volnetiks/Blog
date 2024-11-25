@@ -1,26 +1,20 @@
 import { Button, Card, CardBody, CardFooter, Image, Link } from '@nextui-org/react';
 import { BrainCircuit } from 'lucide-react';
-
-interface Post {
-  title: string;
-  description: string;
-  created_at: string;
-  id: string;
-}
+import PostWithTags from '~/interfaces/PostWithTags';
 
 interface ArticleProps {
-  post: Post;
+  post: PostWithTags;
 }
 
 export default function Article({ post }: ArticleProps) {
   return (
-    <Link href={`/post/${post.id}`} className={"w-1/6 h-[600px]"}>
+    <Link href={`/post/${post.id}`} className={'w-1/6 h-[600px]'}>
       <Card
         className="bg-white w-full h-full"
         shadow="sm"
       >
         <CardBody className="p-0 h-full flex flex-col">
-          <div className={"h-1/3 w-full relative"}>
+          <div className={'h-1/3 w-full relative'}>
             <Image
               removeWrapper={true}
               alt="Article cover"
@@ -36,7 +30,7 @@ export default function Article({ post }: ArticleProps) {
 
           <div
             className="flex flex-col px-6 h-full justify-between">
-            <div className={"flex-none"}>
+            <div className={'flex-none'}>
               <Button variant="bordered" className="w-fit border-black mt-2">
                 <BrainCircuit /> Artificial Intelligence
               </Button>
@@ -45,7 +39,7 @@ export default function Article({ post }: ArticleProps) {
               </h1>
             </div>
             <div className="mt-2">
-              <p className={"line-clamp-8"}>
+              <p className={'line-clamp-8'}>
                 {post.description}
               </p>
             </div>

@@ -5,36 +5,16 @@ import Header from '~/components/Navbar';
 import HorizontalArticle from '~/components/HorizontalArticle';
 import { useEffect, useState } from 'react';
 import { Button, Select, SelectItem } from '@nextui-org/react';
-import { createClient } from '@supabase/supabase-js';
-import process from 'node:process';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
-
-interface Post {
-  title: string;
-  description: string;
-  created_at: string;
-  id: string;
-}
-
-interface Tag {
-  icon: string;
-  name: string;
-  color: string;
-  id: string;
-}
+import Tag from '~/interfaces/Tag';
+import Post from '~/interfaces/Post';
+import { supabase } from '~/database/database';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.tag, 'Missing tag param');
 
-  const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
-
-  const { data, error } = await supabase.from('tags').select('*');
-
-  if (!data || error) {
-    console.log(error);
-    throw new Response('Not Found', { status: 404 });
-  }
+  const data = await supabase.getAllTags();
 
   const tags: Tag[] = [];
 
@@ -52,12 +32,10 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   return json({ tag: params.tag, tags: tags, url: process.env.SUPABASE_URL!, key: process.env.SUPABASE_ANON_KEY! });
 };
 
-export default function Post() {
+export default function PostPage() {
   const { tag, tags, url, key } = useLoaderData<typeof loader>();
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set([tag]));
   const [posts, setPosts] = useState<Post[]>([]);
-
-  const supabase = createClient(url, key);
 
   useEffect(() => {
     fetchPostsWithTags();
@@ -65,30 +43,7 @@ export default function Post() {
 
   const fetchPostsWithTags = async () => {
     if (selectedTags.size > 0) {
-      const { data: tagData } = await supabase
-        .from('tags')
-        .select('id')
-        .in('name', Array.from(selectedTags));
-
-      if (!tagData) return null;
-      const tagIds = tagData.map(tag => tag.id);
-
-      const { data, error } = await supabase
-        .from('tags__posts')
-        .select(`
-          posts (
-            *,
-            tags__posts (
-              tags (
-                id,
-                name
-              )
-            )
-          )
-        `)
-        .in('tag_id', tagIds);
-
-      if (!data || error) console.log('Error');
+      const data = await supabase.getPostsWithTags(selectedTags, url, key);
 
       const tempPosts: Post[] = [];
 
@@ -109,6 +64,8 @@ export default function Post() {
         const post: Post = {
           // @ts-ignore
           title: postData.title,
+          // @ts-ignore
+          content: postData.content,
           // @ts-ignore
           description: postData.description,
           // @ts-ignore
@@ -179,7 +136,6 @@ export default function Post() {
           </div>
           <div className={'flex flex-col gap-4'}>
             {posts.map((post: Post) => {
-              console.log(post);
               return (<HorizontalArticle post={post} />);
             })}
           </div>

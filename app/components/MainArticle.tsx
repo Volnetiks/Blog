@@ -1,25 +1,38 @@
 import { Button, Card, CardBody, Image, Link } from '@nextui-org/react';
-import { BrainCircuit } from 'lucide-react';
+import { BrainCircuit, LucideIcon } from 'lucide-react';
 import { LoaderFunctionArgs } from '@remix-run/node';
 import { createClient } from '@supabase/supabase-js';
 import process from 'node:process';
 import { useLoaderData } from '@remix-run/react';
-
-interface Post {
-  title: string;
-  description: string;
-  created_at: string;
-  id: string;
-}
+import Post from '~/interfaces/Post';
+import PostWithTags from '~/interfaces/PostWithTags';
+import Tag from '~/interfaces/Tag';
+import * as LucideIcons from 'lucide-react';
 
 interface MainArticleProps {
-  post: Post;
+  post: PostWithTags;
 }
 
 export default function MainArticle({ post }: MainArticleProps) {
+  const renderTagIcon = (tag: Tag) => {
+    // @ts-ignore
+    const Icon = LucideIcons[tag.icon] as LucideIcon;
+
+    return (
+      <div key={tag.id}>
+        <Button variant="bordered" href={`/search/tag/${tag.name}`} className={`w-fit mt-2 text-white border-white`}
+                as={Link}>
+          <Icon /> {tag.name}
+        </Button>
+      </div>
+    );
+  };
+
+  console.log(post.tags);
+
   return (
     <div className="w-4/6 h-[600px]">
-      <Link href={`/post/${post.id}`} className={"w-full h-full"}>
+      <Link href={`/post/${post.id}`} className={'w-full h-full'}>
         <Card
           className="bg-black w-full h-full"
           shadow="sm"
@@ -41,10 +54,10 @@ export default function MainArticle({ post }: MainArticleProps) {
             <div
               className="flex-1 flex flex-col px-6 h-full justify-between">
               <div>
-                <Button variant="bordered" className="w-fit text-white mt-8">
-                  <BrainCircuit /> Artificial Intelligence
-                </Button>
-                <h1 className="text-5xl font-bold text-white mt-12">
+                <div className={'flex flex-row gap-2 mt-8'}>
+                  {post.tags.map((tag: Tag) => renderTagIcon(tag))}
+                </div>
+                <h1 className="text-5xl font-bold text-white mt-6">
                   {post.title}
                 </h1>
                 <div className="mt-6 text-white">
