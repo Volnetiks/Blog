@@ -1,7 +1,6 @@
 import MainArticle from '~/components/MainArticle';
 import Article from '~/components/Article';
 import Header from '~/components/Navbar';
-import { LoaderFunctionArgs } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
