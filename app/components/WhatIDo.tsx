@@ -6,7 +6,7 @@ interface WhatIDoProps {
 
 export default function WhatIDo({ activityName, activityDescription, icon }: WhatIDoProps) {
   return (
-    <div className={'min-w-full rounded-2xl bg-gray-100 flex flex-row m-2 p-2 pr-6 pl-6 gap-6 items-center'}>
+    <div className={'min-w-full rounded-2xl bg-gray-100 flex flex-row p-2 pr-6 pl-6 gap-6 items-center'}>
       {icon}
       <div className={'flex flex-col justify-between gap-2 py-2'}>
         <p className={'text-xl font-semibold'}>
