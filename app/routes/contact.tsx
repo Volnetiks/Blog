@@ -1,5 +1,5 @@
 import Cal, { getCalApi } from '@calcom/embed-react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Header from '~/components/Navbar';
 
 export default function Contact() {
@@ -16,6 +16,7 @@ export default function Contact() {
 
   return (
     <div>
+      <title>Thomas Béchu | Contact</title>
       <Header activatedIndex={8} />
       <div className={'flex flex-row justify-center'}>
         <Cal namespace="15min"

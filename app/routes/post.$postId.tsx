@@ -12,6 +12,7 @@ import remarkGfm from 'remark-gfm';
 import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
+import React from 'react';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, 'Missing postId param');
@@ -90,6 +91,7 @@ export default function PostPage() {
 
   return (
     <main className="w-full">
+      <title>Thomas Béchu | {blog.title}</title>
       <div className="w-full">
         <Header activatedIndex={1} />
         <div className="flex flex-col items-center min-w-full gap-2 mt-12">

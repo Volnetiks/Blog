@@ -5,6 +5,7 @@ import { useLoaderData } from '@remix-run/react';
 import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
+import React from 'react';
 
 export const loader = async () => {
 
@@ -56,6 +57,7 @@ export default function Blog() {
 
   return (
     <div>
+      <title>Thomas Béchu | Blog</title>
       <Header activatedIndex={1} />
       <main>
         <div className={'flex flex-col pt-6'}>

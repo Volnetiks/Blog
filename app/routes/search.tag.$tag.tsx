@@ -3,7 +3,7 @@ import { useLoaderData } from '@remix-run/react';
 import invariant from 'tiny-invariant';
 import Header from '~/components/Navbar';
 import HorizontalArticle from '~/components/HorizontalArticle';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Select, SelectItem } from '@nextui-org/react';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
@@ -98,6 +98,7 @@ export default function PostPage() {
 
   return (
     <main>
+      <title>Thomas Béchu</title>
       <div className="w-full">
         <Header activatedIndex={1} />
         <div className={'flex flex-col w-full px-6'}>
