@@ -61,11 +61,15 @@ export default function Blog() {
       <Header activatedIndex={1} />
       <main>
         <div className={'flex flex-col pt-6'}>
-          <div className={'flex-row flex justify-around'}>
+          <div className={'flex-col lg:flex-row hidden lg:flex lg:justify-around'}>
             <MainArticle post={posts[0]} />
             <Article post={posts[1]} />
           </div>
-          <div className={'mt-8 flex-row flex justify-around mb-16'}>
+          <div className={'flex flex-col lg:hidden items-center gap-y-16'}>
+            <Article post={posts[0]} />
+            <Article post={posts[1]} />
+          </div>
+          <div className={'mt-8 flex-col gap-y-16 lg:flex-row flex items-center lg:justify-around mb-16'}>
             <Article post={posts[2]} />
             <Article post={posts[3]} />
             <Article post={posts[4]} />

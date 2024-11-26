@@ -7,13 +7,13 @@ interface ArticleProps {
 
 export default function Article({ post }: ArticleProps) {
   return (
-    <Link href={`/post/${post.id}`} className={'w-1/6 h-[600px]'}>
+    <Link href={`/post/${post.id}`} className={'lg:w-1/6 w-4/5 h-[800px] lg:h-[600px]'}>
       <Card
         className="bg-white w-full h-full"
         shadow="sm"
       >
-        <CardBody className="p-0 h-full flex flex-col box-border">
-          <div className={'h-1/3 w-full relative'}>
+        <CardBody className="p-0 h-full w-full flex flex-col box-border">
+          <div className={'h-1/2 lg:h-1/3 w-full relative'}>
             <Image
               removeWrapper={true}
               alt="Article cover"
