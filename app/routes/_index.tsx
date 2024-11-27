@@ -2,7 +2,7 @@ import Header from '~/components/Navbar';
 import { Button, Divider, Image, Link } from '@nextui-org/react';
 import React from 'react';
 import WorkingExperience from '~/components/WorkingExperience';
-import WhatIDo from '~/components/WhatIDo';
+import Expertise from '~/components/Expertise';
 import { Building2Icon, SmartphoneIcon } from 'lucide-react';
 import Footer from '~/components/Footer';
 
@@ -39,13 +39,13 @@ export default function Index() {
         </div>
         <Divider />
         <div className={'flex flex-col gap-6'}>
-          <p className={'text-large font-medium'}>What I do</p>
-          <WhatIDo
+          <p className={'text-large font-medium'}>Areas of expertise</p>
+          <Expertise
             activityDescription={'Creating Artificial Intelligence tools that matches your needs, for your company. I specialize in chatbot, fitting the model to your needs.'}
             activityName={'Artificial Intelligence Software'}
             icon={<Building2Icon size={80} />}
           />
-          <WhatIDo
+          <Expertise
             activityDescription={'Creating mobile apps for your start-up/company. I create simple, yet good looking and efficient apps to fit your needs.'}
             activityName={'Mobile apps development'}
             icon={<SmartphoneIcon size={80} />}
