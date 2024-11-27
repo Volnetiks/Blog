@@ -9,11 +9,13 @@ import * as LucideIcons from 'lucide-react';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
+import rehypeHighlight from 'rehype-highlight';
 import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
 import Footer from '~/components/Footer';
+import '~/atom-one-dark.css';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, 'Missing postId param');
@@ -88,12 +90,15 @@ export default function PostPage() {
       /\\\((.*?)\\\)/gs,
       (_, equation) => `$${equation}$`
     );
+
     return inlineProcessedContent;
   };
 
+  const pageTitle = `Thomas Béchu | ${blog.title}`;
+
   return (
     <main className="w-full">
-      <title>Thomas Béchu | {blog.title}</title>
+      <title>{pageTitle}</title>
       <div className="w-full">
         <Header activatedIndex={1} />
         <div className="flex flex-col items-center min-w-full gap-2 mt-12">
@@ -113,7 +118,7 @@ export default function PostPage() {
         <div className="prose lg:prose-xl flex-none justify-center min-w-full px-16">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
           <Markdown remarkPlugins={[remarkMath, remarkGfm]}
-                    rehypePlugins={[rehypeKatex]}>{preprocessLaTeX(blog.content)}</Markdown>
+                    rehypePlugins={[rehypeKatex, [rehypeHighlight, { ignoreMissing: true }]]}>{preprocessLaTeX(blog.content)}</Markdown>
         </div>
       </div>
       <Divider className={'mt-8'} />
