@@ -97,7 +97,7 @@ export default function PostPage() {
       <div className="w-full">
         <Header activatedIndex={1} />
         <div className="flex flex-col items-center min-w-full gap-2 mt-12">
-          <div className="text-5xl font-bold">
+          <div className="text-5xl font-bold text-center">
             {blog.title}
           </div>
           <div className="text-gray-500 text-sm">
