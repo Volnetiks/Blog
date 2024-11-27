@@ -12,11 +12,11 @@ export default function Index() {
     <Header activatedIndex={0} />
     <div className={'flex w-full items-center lg:items-start flex-col lg:flex-row lg:justify-evenly mt-20 mb-16'}>
       <div
-        className={'flex flex-col text-center lg:items-start items-center lg:text-left gap-2 lg:max-w-[35%] max-w-[80%] mb-8'}>
+        className={'flex flex-col text-center lg:items-start items-center lg:text-left gap-3 lg:max-w-[35%] max-w-[80%] mb-8'}>
         <Image width={200} src={'/me.jpg'} />
         <p className={'font-bold text-6xl mt-4'}>I'm Thomas Béchu</p>
         <p className={'text-2xl'}>AI and Mobile programmer based in Nantes, France</p>
-        <div className={'flex flex-row gap-3'}>
+        <div className={'flex flex-row gap-4'}>
           <Link href={'https://www.linkedin.com/in/bechu-thomas'} className={'text-black'}>
             <LinkedinIcon size={30} />
           </Link>
