@@ -70,6 +70,8 @@ export default function PostPage() {
           // @ts-ignore
           description: postData.description,
           // @ts-ignore
+          image: postData.image,
+          // @ts-ignore
           created_at: new Date(postData.created_at).toLocaleString('en-US', formatOptions),
           // @ts-ignore
           id: postData.id

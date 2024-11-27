@@ -3,5 +3,6 @@ export default interface Post {
   content: string;
   description: string;
   created_at: string;
+  image: string;
   id: string;
 }

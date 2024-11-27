@@ -48,6 +48,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     content: data[0]['content'],
     description: data[0]['description'],
     created_at: formattedDate,
+    image: data[0]['image'],
     tags: tags,
     id: data[0]['id']
   };

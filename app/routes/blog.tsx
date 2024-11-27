@@ -44,6 +44,7 @@ export const loader = async () => {
       description: dataItem['description'],
       content: dataItem['content'],
       created_at: formattedDate,
+      image: dataItem['image'],
       tags: tags,
       id: dataItem['id']
     };

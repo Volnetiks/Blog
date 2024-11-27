@@ -5,6 +5,7 @@ export default interface PostWithTags {
   content: string;
   description: string;
   created_at: string;
+  image: string;
   tags: Tag[];
   id: string;
 }
