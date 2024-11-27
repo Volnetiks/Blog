@@ -4,12 +4,13 @@ import invariant from 'tiny-invariant';
 import Header from '~/components/Navbar';
 import HorizontalArticle from '~/components/HorizontalArticle';
 import React, { useEffect, useState } from 'react';
-import { Button, Select, SelectItem } from '@nextui-org/react';
+import { Button, Divider, Select, SelectItem } from '@nextui-org/react';
 import * as LucideIcons from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import Tag from '~/interfaces/Tag';
 import Post from '~/interfaces/Post';
 import { supabase } from '~/database/database';
+import Footer from '~/components/Footer';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.tag, 'Missing tag param');
@@ -142,6 +143,8 @@ export default function PostPage() {
           </div>
         </div>
       </div>
+      <Divider className={'mt-8'} />
+      <Footer />
     </main>
   );
 }

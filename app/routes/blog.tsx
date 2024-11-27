@@ -6,6 +6,8 @@ import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
+import { Divider } from '@nextui-org/react';
+import Footer from '~/components/Footer';
 
 export const loader = async () => {
 
@@ -77,6 +79,8 @@ export default function Blog() {
           </div>
         </div>
       </main>
+      <Divider />
+      <Footer />
     </div>
   );
 }

@@ -13,6 +13,7 @@ import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
+import Footer from '~/components/Footer';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, 'Missing postId param');
@@ -114,6 +115,8 @@ export default function PostPage() {
                     rehypePlugins={[rehypeKatex]}>{preprocessLaTeX(blog.content)}</Markdown>
         </div>
       </div>
+      <Divider className={'mt-8'} />
+      <Footer />
     </main>
   );
 }

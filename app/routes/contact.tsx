@@ -1,6 +1,8 @@
 import Cal, { getCalApi } from '@calcom/embed-react';
 import React, { useEffect } from 'react';
 import Header from '~/components/Navbar';
+import { Divider } from '@nextui-org/react';
+import Footer from '~/components/Footer';
 
 export default function Contact() {
   useEffect(() => {
@@ -25,6 +27,8 @@ export default function Contact() {
              config={{ 'layout': 'month_view' }}
         />
       </div>
+      <Divider />
+      <Footer />
     </div>
   );
 }
