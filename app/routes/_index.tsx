@@ -11,7 +11,8 @@ export default function Index() {
     <title>Thomas Béchu</title>
     <Header activatedIndex={0} />
     <div className={'flex w-full items-center lg:items-start flex-col lg:flex-row lg:justify-evenly mt-20 mb-16'}>
-      <div className={'flex flex-col text-center items-center lg:text-left gap-2 lg:max-w-[35%] max-w-[80%] mb-8'}>
+      <div
+        className={'flex flex-col text-center lg:items-start items-center lg:text-left gap-2 lg:max-w-[35%] max-w-[80%] mb-8'}>
         <Image width={200} src={'/me.jpg'} />
         <p className={'font-bold text-6xl mt-4'}>I'm Thomas Béchu</p>
         <p className={'text-2xl'}>AI and Mobile programmer based in Nantes, France</p>
@@ -30,15 +31,7 @@ export default function Index() {
           </div>
         </div>
         <Divider />
-        <div className={'flex flex-col gap-6 mb-12'}>
-          <p className={'text-large font-medium'}>Working Experience</p>
-          <WorkingExperience companyName={'D-EDGE'} postName={'DevOps Engineer Intern'} duration={'January 2023'}
-                             icon={'/dedge.png'} />
-          <WorkingExperience companyName={'Thomas Béchu\'s Corp.'} postName={'Self Employed Programmer'}
-                             duration={'Sep. 2024 - Present'} icon={''} />
-        </div>
-        <Divider />
-        <div className={'flex flex-col gap-6'}>
+        <div className={'flex flex-col gap-6 mb-6'}>
           <p className={'text-large font-medium'}>Areas of expertise</p>
           <Expertise
             activityDescription={'Creating Artificial Intelligence tools that matches your needs, for your company. I specialize in chatbot, fitting the model to your needs.'}
@@ -50,6 +43,14 @@ export default function Index() {
             activityName={'Mobile apps development'}
             icon={<SmartphoneIcon size={80} />}
           />
+        </div>
+        <Divider />
+        <div className={'flex flex-col gap-6 mb-6'}>
+          <p className={'text-large font-medium'}>Working Experience</p>
+          <WorkingExperience companyName={'D-EDGE'} postName={'DevOps Engineer Intern'} duration={'January 2023'}
+                             icon={'/dedge.png'} />
+          <WorkingExperience companyName={'Thomas Béchu\'s Corp.'} postName={'Self Employed Programmer'}
+                             duration={'Sep. 2024 - Present'} icon={''} />
         </div>
       </div>
     </div>
