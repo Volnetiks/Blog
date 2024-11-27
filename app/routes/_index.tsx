@@ -3,7 +3,7 @@ import { Button, Divider, Image, Link } from '@nextui-org/react';
 import React from 'react';
 import WorkingExperience from '~/components/WorkingExperience';
 import Expertise from '~/components/Expertise';
-import { Building2Icon, SmartphoneIcon } from 'lucide-react';
+import { Building2Icon, GithubIcon, LinkedinIcon, SmartphoneIcon } from 'lucide-react';
 import Footer from '~/components/Footer';
 
 export default function Index() {
@@ -16,6 +16,14 @@ export default function Index() {
         <Image width={200} src={'/me.jpg'} />
         <p className={'font-bold text-6xl mt-4'}>I'm Thomas Béchu</p>
         <p className={'text-2xl'}>AI and Mobile programmer based in Nantes, France</p>
+        <div className={'flex flex-row gap-3'}>
+          <Link href={'https://www.linkedin.com/in/bechu-thomas'} className={'text-black'}>
+            <LinkedinIcon size={30} />
+          </Link>
+          <Link href={'https://github.com/Volnetiks'} className={'text-black'}>
+            <GithubIcon size={30} />
+          </Link>
+        </div>
       </div>
       <div className={'flex flex-col max-w-[80%] lg:max-w-[35%] gap-4'}>
         <div className={'flex flex-col gap-8'}>
