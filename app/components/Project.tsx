@@ -10,7 +10,7 @@ interface ProjectProps {
 
 export default function Project({ name, description, image, workInProgress }: ProjectProps) {
   return (
-    <Link className={'w-4/5 lg:w-1/4 h-[600px] lg:h-[400px] lg:mt-16'}>
+    <Link className={'w-4/5 lg:w-1/4 mx-1 h-[600px] lg:h-[400px] lg:mt-16'}>
       <Card
         className="bg-white w-full h-full"
         shadow="sm"

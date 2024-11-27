@@ -91,6 +91,14 @@ class SupabaseService {
 
     return data;
   }
+
+  public async getAllProjects() {
+    const { data, error } = await this.getClient().from('projects').select('*');
+
+    if (error) throw error;
+
+    return data;
+  }
 }
 
 export const supabase = SupabaseService.getInstance();
