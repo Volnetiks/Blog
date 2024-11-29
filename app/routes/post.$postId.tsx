@@ -70,10 +70,11 @@ export default function PostPage() {
 
     return (
       <div key={tag.id}>
-        <Button variant="bordered" href={`/search/tag/${tag.name}`} className={`w-fit mt-2`} style={{
-          borderColor: tag.color,
-          color: tag.color
-        }} as={Link}>
+        <Button variant="bordered" href={`/search/tag/${encodeURIComponent(tag.name)}`} className={`w-fit mt-2`}
+                style={{
+                  borderColor: tag.color,
+                  color: tag.color
+                }} as={Link}>
           <Icon /> {tag.name}
         </Button>
       </div>

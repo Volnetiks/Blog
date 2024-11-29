@@ -30,7 +30,12 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
     tags.push(tag);
   });
 
-  return json({ tag: params.tag, tags: tags, url: process.env.SUPABASE_URL!, key: process.env.SUPABASE_ANON_KEY! });
+  return json({
+    tag: decodeURIComponent(params.tag),
+    tags: tags,
+    url: process.env.SUPABASE_URL!,
+    key: process.env.SUPABASE_ANON_KEY!
+  });
 };
 
 export default function PostPage() {
