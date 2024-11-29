@@ -4,34 +4,34 @@ ENV NODE_ENV=production
 
 FROM base as deps
 
-WORKDIR /myapp
+WORKDIR /blog
 
 ADD package.json .npmrc ./
 RUN npm install --include=dev
 
 FROM base as production-deps
 
-WORKDIR /myapp
+WORKDIR /blog
 
-COPY --from=deps /myapp/node_modules /myapp/node_modules
+COPY --from=deps /blog/node_modules /blog/node_modules
 ADD package.json .npmrc ./
 RUN npm prune --omit=dev
 
 FROM base as build
 
-WORKDIR /myapp
-COPY --from=deps /myapp/node_modules /myapp/node_modules
+WORKDIR /blog
+COPY --from=deps /blog/node_modules /blog/node_modules
 
 ADD . .
 RUN npm run build
 
 FROM base
-WORKDIR /myapp
+WORKDIR /blog
 
-COPY --from=production-deps /myapp/node_modules /myapp/node_modules
+COPY --from=production-deps /blog/node_modules /blog/node_modules
 
-COPY --from=build /myapp/build /myapp/build
-COPY --from=build /myapp/public /myapp/public
+COPY --from=build /blog/build /blog/build
+COPY --from=build /blog/public /blog/public
 ADD . .
 
 CMD ["npm", "start"]

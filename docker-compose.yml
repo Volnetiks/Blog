@@ -1,0 +1,13 @@
+services:
+  monorepo_prod:
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV
+      - DATABASE_URL
+
+    container_name: blog
+    image: volnetiks/blog:1.0
+    restart: always
+    ports:
+      - 3000:3000
