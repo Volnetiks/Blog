@@ -23,7 +23,7 @@ import { createClient } from '@supabase/supabase-js';
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const tagQuery = url.searchParams.get('tag');
+  let tag = null;
 
   const data = await supabase.getAllTags();
 
@@ -40,9 +40,14 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     tags.push(tag);
   });
 
+  if (url.searchParams.get('tag')) {
+    const tagQuery = decodeURIComponent(url.searchParams.get('tag')!);
+
+    tag = tagQuery === '' ? '' : tags.find((tagId) => tagId.name === tagQuery!) === null ? '' : tags.find((tagId) => tagId.name === tagQuery!)!.id;
+  }
 
   return json({
-    tag: tagQuery,
+    tag: tag ?? '',
     tags: tags,
     url: process.env.SUPABASE_URL!,
     key: process.env.SUPABASE_ANON_KEY!
@@ -51,18 +56,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Search() {
   const { tag, tags, url, key } = useLoaderData<typeof loader>();
-  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set([]));
+  const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set(tag === '' ? [] : [tag]));
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const client = createClient(url, key);
 
   const tagsButtonText = selectedTags.size === 0 ? 'Choose tags' : `${selectedTags.size} tags selected`;
-
-  useEffect(() => {
-    if (tag != null) {
-      setSelectedTags(new Set([tag]));
-    }
-  });
 
   useEffect(() => {
     fetchPosts();
