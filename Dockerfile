@@ -1,8 +1,6 @@
 FROM node:21-bullseye-slim AS base
 
-ENV NODE_ENV=production
-
-FROM base as deps
+FROM base AS deps
 
 WORKDIR /blog
 
@@ -23,6 +21,7 @@ WORKDIR /blog
 COPY --from=deps /blog/node_modules /blog/node_modules
 
 ADD . .
+ENV NODE_ENV=production
 RUN npm run build
 
 FROM base
