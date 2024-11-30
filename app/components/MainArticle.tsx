@@ -37,7 +37,7 @@ export default function MainArticle({ post }: MainArticleProps) {
           shadow="sm"
         >
           <CardBody className="p-0 flex flex-row h-full">
-            <div className="h-full w-1/3 relative">
+            <div className="h-full w-7/12 relative">
               <Image
                 alt="Article cover"
                 classNames={{
