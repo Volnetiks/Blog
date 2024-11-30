@@ -1,14 +1,12 @@
 import { Button, Card, CardBody, Image, Link } from '@nextui-org/react';
 import { ExternalLinkIcon } from 'lucide-react';
+import ProjectInterface from '~/interfaces/Project';
 
 interface ProjectProps {
-  name: string;
-  description: string;
-  image: string;
-  workInProgress: boolean;
+  project: ProjectInterface;
 }
 
-export default function Project({ name, description, image, workInProgress }: ProjectProps) {
+export default function Project({ project }: ProjectProps) {
   return (
     <Link className={'w-4/5 lg:w-1/4 mx-1 h-[600px] lg:h-[400px] lg:mt-16'}>
       <Card
@@ -26,7 +24,7 @@ export default function Project({ name, description, image, workInProgress }: Pr
               }}
               radius="none"
               shadow="md"
-              src={image}
+              src={project.image}
             />
           </div>
 
@@ -34,16 +32,16 @@ export default function Project({ name, description, image, workInProgress }: Pr
             <div className="overflow-hidden flex flex-col">
               <div className={'flex flex-row justify-between items-end'}>
                 <h1 className="text-2xl font-bold mt-4">
-                  {name}
+                  {project.name}
                 </h1>
-                <Button as={Link} isDisabled={workInProgress} href={'/'} className={'bg-white'}>
+                <Button as={Link} isDisabled={project.workInProgress} href={project.url} className={'bg-white'}>
                   <ExternalLinkIcon />
                 </Button>
 
               </div>
               <div className="mt-2 flex-grow overflow-x-auto">
                 <p className="break-words">
-                  {description}
+                  {project.description}
                 </p>
               </div>
             </div>

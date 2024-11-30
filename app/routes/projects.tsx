@@ -35,8 +35,7 @@ export default function Projects() {
       <div className={'flex flex-col justify-between h-full'}>
         <div className={'flex flex-col lg:flex-row lg:justify-around gap-y-16 pt-6 items-center lg:flex-wrap'}>
           {projects.map((project: ProjectInterface) => {
-              return (<Project name={project.name} description={project.description} image={project.image}
-                               workInProgress={project.workInProgress} />);
+              return (<Project project={project} />);
             }
           )}
         </div>

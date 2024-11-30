@@ -28,7 +28,7 @@ export default function HorizontalArticle({ post }: HorizontalArticleProps) {
                 }}
                 radius="none"
                 shadow="md"
-                src="https://nextui.org/images/album-cover.png"
+                src={post.image}
               />
             </div>
 
