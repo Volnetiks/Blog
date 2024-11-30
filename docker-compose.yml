@@ -8,4 +8,4 @@ services:
     image: volnetiks/blog:1.0
     restart: always
     ports:
-      - 3000:3000
+      - "3000:3000"
