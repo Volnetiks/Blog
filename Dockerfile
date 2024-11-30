@@ -1,36 +1,39 @@
-FROM node:21-bullseye-slim AS base
+# Use an official Node runtime as the base image
+FROM node:20-alpine AS base
 
+# Set working directory
+WORKDIR /app
+
+# Install dependencies
 FROM base AS deps
+RUN apk add --no-cache libc6-compat
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-WORKDIR /blog
-
-ADD package.json .npmrc ./
-RUN npm install --include=dev
-
-FROM base AS production-deps
-
-WORKDIR /blog
-
-COPY --from=deps /blog/node_modules /blog/node_modules
-ADD package.json .npmrc ./
-RUN npm prune --omit=dev
-
-FROM base AS build
-
-WORKDIR /blog
-COPY --from=deps /blog/node_modules /blog/node_modules
-
-ADD . .
-ENV NODE_ENV=production
+# Build the application
+FROM base AS builder
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 RUN npm run build
 
-FROM base
-WORKDIR /blog
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-COPY --from=production-deps /blog/node_modules /blog/node_modules
+ENV NODE_ENV production
 
-COPY --from=build /blog/build /blog/build
-COPY --from=build /blog/public /blog/public
-ADD . .
+# Set up non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 remix
 
-CMD ["npm", "start"]
+# Copy build artifacts
+COPY --from=builder --chown=remix:nodejs /app/build ./build
+COPY --from=builder --chown=remix:nodejs /app/public ./public
+COPY --from=builder --chown=remix:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=remix:nodejs /app/node_modules ./node_modules
+
+USER remix
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
