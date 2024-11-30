@@ -1,6 +1,7 @@
 services:
   monorepo_prod:
     environment:
+      - NODE_ENV
       - SUPABASE_URL="https://qcawlvgmohxhyztlmpqh.supabase.co"
       - SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjYXdsdmdtb2h4aHl6dGxtcHFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMjUzNzMsImV4cCI6MjA0NzYwMTM3M30.wjmLdPzq8J2HGppq-ejLsCZj1v3vcuZdQ7k9GlvD06w"
 
