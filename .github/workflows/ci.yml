@@ -69,6 +69,7 @@ jobs:
         env:
           NODE_ENV: production
         run: |
+          docker rmi volnetiks/blog:1.0
           docker pull volnetiks/blog:1.0
           docker compose -f docker-compose.yml up -d
           docker system prune --all --volumes --force
