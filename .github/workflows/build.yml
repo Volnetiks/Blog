@@ -1,12 +1,6 @@
 name: 🐳 Build And Push Docker Image
 on:
   workflow_call:
-    inputs:
-      tag:
-        type: string
-        description: The tag to push to the Docker registry.
-        # required: true
-        # default: latest
 
 jobs:
   build:
