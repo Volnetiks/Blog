@@ -20,7 +20,7 @@ export default function MainArticle({ post }: MainArticleProps) {
 
     return (
       <div key={tag.id}>
-        <Button variant="bordered" href={`/search/tag/${encodeURIComponent(tag.name)}`}
+        <Button variant="bordered" href={`/search?tag=${encodeURIComponent(tag.name)}`}
                 className={`w-fit mt-2 text-white border-white`}
                 as={Link}>
           <Icon /> {tag.name}
