@@ -54,17 +54,29 @@ class SupabaseService {
     return data;
   }
 
-  public async retrievePostsWithFilter(selectedTags: Set<string>, term: string, client: SupabaseClient) {
+  public async retrievePostsWithFilter(selectedTags: Set<string>, term: string, allTags: boolean, client: SupabaseClient) {
     const tagsIds = Array.from(selectedTags);
-    console.log(tagsIds);
 
     const {
       data,
       error
     } = await client.from('posts').select('*, tags ( id, name, icon, color )').ilike('title', `%${term}%`);
 
-    console.log(data);
-    const filteredData = data!.filter((post) => post.tags.some((tag: { id: string; }) => tagsIds.includes(tag.id)));
+    let filteredData: any[];
+
+    if (allTags) {
+      filteredData = data!.filter((post => {
+        const postTagIds = post.tags.map((postTag: { id: string; }) => postTag.id);
+        const postTagSet = new Set(postTagIds);
+
+        return tagsIds.every(tagId => postTagSet.has(tagId));
+      }));
+    } else {
+      filteredData = data!.filter((post) => post.tags.some((tag: {
+        id: string;
+      }) => tagsIds.includes(tag.id)));
+    }
+
     if (error) throw error;
 
     return filteredData;

@@ -8,11 +8,11 @@ import {
   Divider,
   Dropdown,
   DropdownItem,
-  DropdownMenu,
+  DropdownMenu, DropdownSection,
   DropdownTrigger
 } from '@nextui-org/react';
 import * as LucideIcons from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
+import { CheckCheck, CheckIcon, LucideIcon } from 'lucide-react';
 import Tag from '~/interfaces/Tag';
 import Post from '~/interfaces/Post';
 import { supabase } from '~/database/database';
@@ -56,20 +56,22 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export default function Search() {
   const { tag, tags, url, key } = useLoaderData<typeof loader>();
+  const [dropdownValues, setDropdownValues] = useState<Selection>(new Set(tag === '' ? [] : [tag]));
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set(tag === '' ? [] : [tag]));
   const [posts, setPosts] = useState<Post[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [allTags, setAllTags] = useState(false);
   const client = createClient(url, key);
 
   const tagsButtonText = selectedTags.size === 0 ? 'Choose tags' : `${selectedTags.size} tags selected`;
 
   useEffect(() => {
     fetchPosts();
-  }, [selectedTags, searchTerm]);
+  }, [selectedTags, searchTerm, allTags]);
 
   const fetchPosts = async () => {
     const tagsIds = new Set(Array.from(tags).map((tag) => tag.id));
-    const data = await supabase.retrievePostsWithFilter(selectedTags.size == 0 ? tagsIds : selectedTags, searchTerm, client);
+    const data = await supabase.retrievePostsWithFilter(selectedTags.size == 0 ? tagsIds : selectedTags, searchTerm, allTags, client);
 
     const tempPosts: Post[] = [];
 
@@ -126,14 +128,33 @@ export default function Search() {
                 </DropdownTrigger>
 
                 <DropdownMenu closeOnSelect={false} selectionMode={'multiple'}
-                              onSelectionChange={(keys) => setSelectedTags(keys as Set<string>)}
-                              selectedKeys={selectedTags}>
-                  {tags.map((tag) => (
-                    <DropdownItem key={tag.id}
-                                  startContent={renderTagIcon(tag)}
-                                  description={tag.name}
-                    />
-                  ))}
+                              onSelectionChange={setDropdownValues}
+                              selectedKeys={dropdownValues}>
+                  <DropdownSection title={'Tags'} showDivider>
+                    {tags.map((tag) => (
+                      <DropdownItem key={tag.id}
+                                    onClick={() => {
+                                      if (!selectedTags.has(tag.id)) {
+                                        const newTags = new Set(selectedTags);
+                                        newTags.add(tag.id);
+                                        setSelectedTags(newTags);
+                                      } else {
+                                        const newTags = new Set(selectedTags);
+                                        newTags.delete(tag.id);
+                                        setSelectedTags(newTags);
+                                      }
+                                    }}
+                                    startContent={renderTagIcon(tag)}
+                                    description={tag.name}
+                      />
+                    ))}
+                  </DropdownSection>
+                  <DropdownSection title={'Options'}>
+                    <DropdownItem key={'all-tags'} startContent={allTags ? <CheckCheck /> : <CheckIcon />}
+                                  onClick={() => setAllTags(!allTags)}>
+                      All tags must be in the article
+                    </DropdownItem>
+                  </DropdownSection>
                 </DropdownMenu>
               </Dropdown>
             </div>
