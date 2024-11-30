@@ -1,6 +1,5 @@
-FROM node:21-bullseye-slim as base
+FROM node:21-bullseye-slim AS base
 
-ENV NODE_ENV=production
 
 FROM base as deps
 
@@ -8,8 +7,9 @@ WORKDIR /blog
 
 ADD package.json .npmrc ./
 RUN npm install --include=dev
+ENV NODE_ENV=production
 
-FROM base as production-deps
+FROM base AS production-deps
 
 WORKDIR /blog
 
@@ -17,7 +17,7 @@ COPY --from=deps /blog/node_modules /blog/node_modules
 ADD package.json .npmrc ./
 RUN npm prune --omit=dev
 
-FROM base as build
+FROM base AS build
 
 WORKDIR /blog
 COPY --from=deps /blog/node_modules /blog/node_modules
