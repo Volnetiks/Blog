@@ -6,8 +6,9 @@ import { supabase } from '~/database/database';
 import Tag from '~/interfaces/Tag';
 import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
-import { Divider } from '@nextui-org/react';
+import { Divider, Link } from '@nextui-org/react';
 import Footer from '~/components/Footer';
+import { MoveRight } from 'lucide-react';
 
 export const loader = async () => {
 
@@ -72,11 +73,17 @@ export default function Blog() {
             <Article post={posts[0]} />
             <Article post={posts[1]} />
           </div>
-          <div className={'mt-8 flex-col gap-y-16 lg:flex-row flex items-center lg:justify-around mb-16'}>
+          <div className={'mt-8 flex-col lg:flex-row flex items-center lg:justify-around mb-4'}>
             <Article post={posts[2]} />
             <Article post={posts[3]} />
             <Article post={posts[4]} />
             <Article post={posts[5]} />
+          </div>
+          <div className={'flex flex-row justify-end mb-12 mr-20'}>
+            <Link className={'text-gray-500 gap-2 mb-16'} href={'/search/'}>
+              <p className="font-bold text-inherit">View all posts</p>
+              <MoveRight />
+            </Link>
           </div>
         </div>
       </main>

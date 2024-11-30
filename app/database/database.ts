@@ -1,5 +1,6 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import process from 'node:process';
+import Post from '~/interfaces/Post';
 
 class SupabaseService {
   private static instance: SupabaseService | null = null;
@@ -53,35 +54,20 @@ class SupabaseService {
     return data;
   }
 
-  public async getPostsWithTags(tags: Set<string>, url: string, key: string) {
-    const client = createClient(url, key);
-    const { data: tagData } = await client
-      .from('tags')
-      .select('id')
-      .in('name', Array.from(tags));
+  public async retrievePostsWithFilter(selectedTags: Set<string>, term: string, client: SupabaseClient) {
+    const tagsIds = Array.from(selectedTags);
+    console.log(tagsIds);
 
-    if (!tagData) return null;
-    const tagIds = tagData.map(tag => tag.id);
+    const {
+      data,
+      error
+    } = await client.from('posts').select('*, tags ( id, name, icon, color )').ilike('title', `%${term}%`);
 
-    const { data, error } = await client
-      .from('tags__posts')
-      .select(`
-          posts (
-            *,
-            tags__posts (
-              tags (
-                id,
-                name
-              )
-            )
-          )
-        `)
-      .in('tag_id', tagIds);
-
+    console.log(data);
+    const filteredData = data!.filter((post) => post.tags.some((tag: { id: string; }) => tagsIds.includes(tag.id)));
     if (error) throw error;
-    if (!data) throw 'Data is empty';
 
-    return data;
+    return filteredData;
   }
 
   public async getAllTags() {
