@@ -1,5 +1,6 @@
 FROM node:21-bullseye-slim AS base
 
+ENV NODE_ENV=production
 
 FROM base as deps
 
@@ -7,7 +8,6 @@ WORKDIR /blog
 
 ADD package.json .npmrc ./
 RUN npm install --include=dev
-ENV NODE_ENV=production
 
 FROM base AS production-deps
 
