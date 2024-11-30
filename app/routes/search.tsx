@@ -74,10 +74,20 @@ export default function Search() {
 
     const tempPosts: Post[] = [];
 
+    const formatOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    };
+
     data.forEach((postData) => {
+      const date = new Date(postData.created_at);
+
+      const formattedDate = date.toLocaleString('en-US', formatOptions);
+
       const post: Post = {
         id: postData.id,
-        created_at: postData.created_at,
+        created_at: formattedDate,
         title: postData.title,
         description: postData.description,
         content: postData.content,
