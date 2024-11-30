@@ -8,7 +8,7 @@ import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
 import { Divider, Link } from '@nextui-org/react';
 import Footer from '~/components/Footer';
-import { MoveRight } from 'lucide-react';
+import { MoveRight, Search } from 'lucide-react';
 
 export const loader = async () => {
 
@@ -65,6 +65,12 @@ export default function Blog() {
       <Header activatedIndex={1} />
       <main>
         <div className={'flex flex-col pt-6'}>
+          <div className={'flex flex-row justify-end mb-2 mr-20'}>
+            <Link href={'/search'} className={'font-bold text-black'}>
+              <p className={'mr-2'}>Search</p>
+              <Search />
+            </Link>
+          </div>
           <div className={'flex-col lg:flex-row hidden lg:flex lg:justify-around'}>
             <MainArticle post={posts[0]} />
             <Article post={posts[1]} />
