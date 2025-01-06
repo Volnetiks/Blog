@@ -106,6 +106,9 @@ export default function PostPage() {
           <div className="text-5xl font-bold text-center">
             {blog.title}
           </div>
+          <div className={'text-xl text-gray-700 text-center font-bold mt-3 mb-1'}>
+            Written by Thomas Béchu
+          </div>
           <div className="text-gray-500 text-sm">
             {blog.created_at}
           </div>
