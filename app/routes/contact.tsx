@@ -19,7 +19,7 @@ export default function Contact() {
   return (
     <div>
       <title>Thomas Béchu | Contact</title>
-      <Header activatedIndex={8} />
+      <Header activatedIndex={3} />
       <div className={'flex flex-row justify-center'}>
         <Cal namespace="15min"
              calLink="thomas-bechu/30min"
