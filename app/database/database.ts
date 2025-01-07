@@ -60,7 +60,7 @@ class SupabaseService {
     const {
       data,
       error
-    } = await client.from('posts').select('*, tags ( id, name, icon, color )').ilike('title', `%${term}%`);
+    } = await client.from('posts').select('*, tags ( id, name, icon, color )').ilike('title', `%${term}%`).order('created_at', { ascending: false });
 
     let filteredData: any[];
 
