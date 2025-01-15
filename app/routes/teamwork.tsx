@@ -62,7 +62,7 @@ export default function Teamwork() {
   return (
     <div>
       <title>Thomas Béchu | Blog</title>
-      <Header activatedIndex={1} />
+      <Header activatedIndex={4} />
       <main>
         <div className={'flex flex-col pt-6'}>
           <div className={'flex flex-row justify-end mb-2 mr-20'}>

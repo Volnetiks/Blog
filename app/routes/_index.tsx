@@ -28,7 +28,7 @@ I'll be studying Computer Science at Warsaw University of Technology (WUT), one 
 
 To get to Warsaw, I'll fly out of **Nantes (NTE / AF7507)**, with a layover in **Paris (CDG / AF1146)**, and land at Warsaw Chopin Airport (WAW). The flight looks smooth, and from the airport, getting into the city seems pretty easy with public transport or taxis.
 
-![Flight Trip](/app/assets/flight_trip.png)
+![Flight Trip](https://i.ibb.co/t3PhB4g/flight-trip.png)
 
 # My Place in Warsaw
 
