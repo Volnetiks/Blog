@@ -65,11 +65,6 @@ export default function Header({ activatedIndex }: HeaderProps) {
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href={'/projects'}>
-            <p className={`${activatedIndex == 2 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Projects</p>
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
           <Link href={'/teamwork'}>
             <p className={`${activatedIndex == 4 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Team Works</p>
           </Link>
@@ -100,11 +95,6 @@ export default function Header({ activatedIndex }: HeaderProps) {
         <NavbarMenuItem>
           <Link href={'/blog'}>
             <p className={`${activatedIndex == 1 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Blog</p>
-          </Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link href={'/projects'}>
-            <p className={`${activatedIndex == 2 ? 'text-blue-800 font-semibold' : 'text-black'}`}>Projects</p>
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
