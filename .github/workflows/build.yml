@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4.1.1
+        with:
+          ref: ${{ github.ref_name }}
 
       - name: 🧑‍💻 Login to Docker Hub
         uses: docker/login-action@v3.0.0
