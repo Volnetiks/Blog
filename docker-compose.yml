@@ -1,11 +1,11 @@
 services:
   blog_prod:
-    image: volnetiks/blog:1.0
+    image: volnetiks/blog-erasmus:1.0
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "4000:4000"
     environment:
       - NODE_ENV=production
       - SUPABASE_URL=https://qcawlvgmohxhyztlmpqh.supabase.co

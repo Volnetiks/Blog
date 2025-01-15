@@ -5,7 +5,7 @@ on:
 jobs:
   build:
     name: 🐳 Build
-    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
+    if: ${{ (github.ref == 'refs/heads/erasmus') && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
@@ -30,12 +30,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
       - name: 🐳 Build Production Image
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/erasmus' }}
         uses: docker/build-push-action@v5.1.0
         with:
           context: .
           push: true
-          tags: volnetiks/blog:1.0
+          tags: volnetiks/blog-erasmus:1.0
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
 

@@ -34,6 +34,6 @@ COPY --from=builder --chown=remix:nodejs /app/node_modules ./node_modules
 
 USER remix
 
-EXPOSE 3000
+EXPOSE 4000
 
 CMD ["npm", "run", "start"]

@@ -2,7 +2,7 @@ name: 🚀 Deploy
 on:
   push:
     branches:
-      - main
+      - erasmus
   pull_request: { }
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
     name: 🚀 Deploy
     runs-on: [ self-hosted ]
     needs: [ build, typecheck ]
-    if: ${{ (github.ref == 'refs/heads/main') && github.event_name == 'push' }}
+    if: ${{ (github.ref == 'refs/heads/erasmus') && github.event_name == 'push' }}
 
     steps:
       - name: Cache node modules
@@ -65,10 +65,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: 🚀 Run Docker Compose on Production
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/erasmus' }}
         env:
           NODE_ENV: production
         run: |
-          docker pull volnetiks/blog:1.0
+          docker pull volnetiks/blog-erasmus:1.0
           docker compose -f docker-compose.yml up -d
           docker system prune --all --volumes --force
