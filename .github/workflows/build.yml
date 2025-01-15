@@ -32,9 +32,9 @@ jobs:
         uses: actions/cache@v4.0.0
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}-${{ github.ref_name }}
+          key: ${{ runner.os }}-buildx-${{ github.ref_name }}-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-
+            ${{ runner.os }}-buildx-${{ github.ref_name }}-
       - name: 🐳 Build Production Image
         if: ${{ github.ref == 'refs/heads/erasmus' }}
         uses: docker/build-push-action@v5.1.0
