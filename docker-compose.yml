@@ -1,6 +1,6 @@
 services:
   blog_prod:
-    image: volnetiks/blog-erasmus:1.0
+    image: volnetiks/blog:1.0
     build:
       context: .
       dockerfile: Dockerfile
