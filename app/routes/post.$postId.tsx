@@ -16,6 +16,7 @@ import PostWithTags from '~/interfaces/PostWithTags';
 import React from 'react';
 import Footer from '~/components/Footer';
 import '~/atom-one-dark.css';
+import rehypeRaw from 'rehype-raw';
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
   invariant(params.postId, 'Missing postId param');
@@ -122,7 +123,7 @@ export default function PostPage() {
         <div className="prose lg:prose-xl flex-none justify-center min-w-full px-16">
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" />
           <Markdown remarkPlugins={[remarkMath, remarkGfm]}
-                    rehypePlugins={[rehypeKatex, [rehypeHighlight, { ignoreMissing: true }]]}>{preprocessLaTeX(blog.content)}</Markdown>
+                    rehypePlugins={[rehypeKatex, [rehypeHighlight, { ignoreMissing: true }], rehypeRaw]}>{preprocessLaTeX(blog.content)}</Markdown>
         </div>
       </div>
       <Divider className={'mt-8'} />
