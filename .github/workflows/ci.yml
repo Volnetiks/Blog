@@ -2,7 +2,7 @@ name: 🚀 Deploy
 on:
   push:
     branches:
-      - erasmus
+      - main
   pull_request: { }
 
 permissions:
@@ -71,4 +71,3 @@ jobs:
         run: |
           docker pull volnetiks/blog-erasmus:1.0
           docker compose -f docker-compose.yml up -d
-          docker system prune --all --volumes --force

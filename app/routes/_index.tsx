@@ -1,9 +1,7 @@
 import Header from '~/components/Navbar';
-import { Button, Divider, Image, Link } from '@nextui-org/react';
+import { Divider, Image, Link } from '@nextui-org/react';
 import React from 'react';
-import WorkingExperience from '~/components/WorkingExperience';
-import Expertise from '~/components/Expertise';
-import { Building2Icon, GithubIcon, Instagram, LinkedinIcon, SmartphoneIcon } from 'lucide-react';
+import { Instagram } from 'lucide-react';
 import Footer from '~/components/Footer';
 import Markdown from 'react-markdown';
 import remarkMath from 'remark-math';
@@ -22,7 +20,10 @@ Warsaw is an incredible mix of old and new. As the capital of Poland, it's full 
 
 # Studying at Warsaw University of Technology
 
-I'll be studying Computer Science at Warsaw University of Technology (WUT), one of the best technical universities in Europe. The campus looks impressive, and the vibe feels really international. I'm excited to be part of such a respected school, especially when tech and engineering are my thing.
+I'll be studying Computer Science at Warsaw University of Technology (WUT), one of the best technical universities in Europe. The campus looks impressive, and the vibe feels really nice. I'm excited to be part of such a respected school, especially when tech and engineering are my thing.
+
+# More about Warsaw
+Warsaw, the capital of Poland, is a bustling city with a population of around 1.8 million people. It’s known for its rich history, which is reflected in landmarks like the Royal Castle, the Old Town, and the iconic Palace of Culture and Science. The city is also a paradise for food lovers, offering everything from traditional Polish dishes like pierogi and bigos to a vibrant international dining scene. Warsaw uses the Polish złoty (PLN, 1 zl is about 4 euros) as its currency, and living costs are relatively affordable compared to other European capitals. Whether you’re exploring the beautiful Łazienki Park, visiting museums like the Museum of the History of Polish Jews, or enjoying the sight of the Old City, Warsaw offers a unique mix of culture, history, and modern energy.
 
 # Getting There from Angers
 
@@ -32,9 +33,14 @@ To get to Warsaw, I'll fly out of **Nantes (NTE / AF7507)**, with a layover in *
 
 # My Place in Warsaw
 
-I'll be living in a studio on Braci Załuskich Street, which is in the northern part of the city. It's a quiet, comfortable area with everything I need nearby. Plus, it's well-connected, so getting to WUT or exploring Warsaw won't be a problem.
+I'll be living in a studio on Braci Załuskich Street, which is in the northern part of the city. It's a quiet, comfortable area with everything I need nearby. Plus, it's well-connected, so getting to WUT or exploring Warsaw won't be a problem. Housing in Warsaw can be a bit pricey, especially since many buildings are quite new. To add to that, Polish people spend around 70% of their salary on housing, which is a lot higher compared to France, where it’s about 40%.
 
 ![Apartment](https://galeria.domiporta.pl/pictures/small/14/2b/f9/f92b4775c571654fa748521979c968891b0e2cf9/wynajme-mieszkanie-warszawa-wilanow.jpg)
+
+# Getting Around Warsaw
+Warsaw’s public transport system is super efficient, with plenty of options to get around the city. From my place, I’ll mainly be using Metro Line 1 to get to WUT, which is fast and reliable. There are also plenty of buses running throughout the city, making it easy to reach other areas whenever needed. Public transport in Warsaw costs about as much as in Angers, with a yearly ticket price of around 250€.
+
+![Public Transport](https://i.ibb.co/CJ80QY7/Screenshot-2025-01-16-081933.png)
 
 # Student Life and ESN
 
@@ -44,9 +50,7 @@ One of the things I'm most looking forward to is student life here. I've heard a
 
 # Good Deals with the ESNcard
 
-Speaking of discounts, the ESNcard seems like it will be a lifesaver. It offers reduced prices on everything from public transport to museums and even some cafes. It's definitely something I'll get when I arrive.
-
-I'm excited for my upcoming time in Warsaw!`;
+Speaking of discounts, the ESNcard seems like it will be a lifesaver. It offers reduced prices on everything from public transport to museums and even some cafes. It's definitely something I'll get when I arrive.`;
 
   return (<div>
     <title>Thomas Béchu</title>
