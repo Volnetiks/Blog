@@ -9,7 +9,6 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 COPY package.json package-lock.json ./
 RUN npm ci --force
-RUN npm install rehype-raw
 
 # Build the application
 FROM base AS builder
