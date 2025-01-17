@@ -7,6 +7,7 @@ WORKDIR /app
 # Install dependencies
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
+RUN git checkout erasmus
 COPY package.json package-lock.json ./
 RUN npm ci --force
 
