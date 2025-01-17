@@ -70,7 +70,7 @@ jobs:
           NODE_ENV: production
         run: |
           export BRANCH_NAME=${{ github.ref_name }}
-          docker container stop -p blog-${{ github.ref_name }}
+          docker container stop blog-${{ github.ref_name }}
           docker compose -p blog-${{ github.ref_name }} down -v
           docker pull volnetiks/blog-erasmus:1.0
           docker compose -p blog-${{ github.ref_name }} -f docker-compose.yml up -d
