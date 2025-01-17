@@ -1,6 +1,7 @@
 services:
   blog_prod:
-    image: volnetiks/blog-erasmus:1.0
+    container_name: blogfolio
+    image: volnetiks/blog:1.0
     build:
       context: .
       dockerfile: Dockerfile
