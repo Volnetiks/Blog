@@ -1,6 +1,6 @@
 services:
   blog_prod:
-    container_name: blog-erasmus
+    container_name: blog-${BRANCH_NAME}
     image: volnetiks/blog-erasmus:1.0
     build:
       context: .
