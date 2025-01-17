@@ -36,4 +36,4 @@ USER remix
 
 EXPOSE 4000
 
-CMD ["PORT=4000", "npm", "run", "start"]
+CMD ["sh", "-c", "PORT=4000 npm run start"]
