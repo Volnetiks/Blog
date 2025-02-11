@@ -73,17 +73,6 @@ export default function Blog() {
           </div>
           <div className={'flex-col lg:flex-row hidden lg:flex lg:justify-around'}>
             <MainArticle post={posts[0]} />
-            <Article post={posts[1]} />
-          </div>
-          <div className={'flex flex-col lg:hidden items-center gap-y-16'}>
-            <Article post={posts[0]} />
-            <Article post={posts[1]} />
-          </div>
-          <div className={'mt-8 flex-col lg:flex-row flex items-center lg:justify-around mb-4'}>
-            <Article post={posts[2]} />
-            <Article post={posts[3]} />
-            <Article post={posts[4]} />
-            <Article post={posts[5]} />
           </div>
           <div className={'flex flex-row justify-end mb-12 mr-20'}>
             <Link className={'text-gray-500 gap-2 mb-16'} href={'/search/'}>
