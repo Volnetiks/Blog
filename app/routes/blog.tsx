@@ -74,6 +74,9 @@ export default function Blog() {
           <div className={'flex-col lg:flex-row hidden lg:flex lg:justify-around'}>
             <MainArticle post={posts[0]} />
           </div>
+          <div className={'flex flex-col lg:hidden items-center gap-y-16'}>
+            <Article post={posts[0]} />
+          </div>
           <div className={'flex flex-row justify-end mb-12 mr-20'}>
             <Link className={'text-gray-500 gap-2 mb-16'} href={'/search/'}>
               <p className="font-bold text-inherit">View all posts</p>
