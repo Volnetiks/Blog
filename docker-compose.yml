@@ -9,8 +9,8 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - SUPABASE_URL=https://lifkreooxghtjrszlgkw.supabase.co
-      - SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpZmtyZW9veGdodGpyc3psZ2t3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5MzQ5ODMsImV4cCI6MjA1MjUxMDk4M30.4PxLKkzgIcqo1Jy1kBqV00ufJxmeDRA6CrEfqNyqs80
+      - SUPABASE_URL=https://qcawlvgmohxhyztlmpqh.supabase.co
+      - SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFjYXdsdmdtb2h4aHl6dGxtcHFoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMjUzNzMsImV4cCI6MjA0NzYwMTM3M30.wjmLdPzq8J2HGppq-ejLsCZj1v3vcuZdQ7k9GlvD06w
     volumes:
       # Exclude node_modules to use container's node_modules
       - /app/node_modules
